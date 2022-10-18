@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toastError } from "../components/Toasts";
+import axiosClient from "../config/AxiosClient";
 import { checkEmail } from "../helpers";
 import useAuthProvider from "../hooks/useAuthProvider";
 
@@ -43,29 +44,21 @@ const Login = () => {
 
     try {
       const url = `${import.meta.env.VITE_BACKEND_URL}/api/users/login`;
-      const res = await fetch(url, {
-        method: "POST",
+      const config = {
         headers: {
           "Content-Type": "application/json"
-        },
-        body: JSON.stringify(userData)
-      });
-      const data = await res.json();
-
-      //Manejar el error
-      if (!res.ok) {
-        throw new Error(
-          "The user doesn't exist or their credentials aren't correct."
-        );
-      }
+        }
+      };
+      const res = await axiosClient.post(url, userData, config);
 
       //Almacenar token local storage
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token", res.data.token);
       setUserData(initialUserData);
-      setAuth(data);
+      setAuth(res.data);
       navigate("/projects");
     } catch (error) {
-      toastError(error.message);
+      console.log(error.response.data.msg);
+      toastError(error.response.data.msg);
     }
   };
 

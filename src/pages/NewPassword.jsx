@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { toastError, toastSuccess } from "../components/Toasts";
+import axiosClient from "../config/AxiosClient";
 
 const NewPassword = () => {
   const { token } = useParams();
@@ -16,12 +17,8 @@ const NewPassword = () => {
           const url = `${
             import.meta.env.VITE_BACKEND_URL
           }/api/users/forget-password/${token}`;
-          const res = await fetch(url);
-          const data = await res.json();
+          const { data } = await axiosClient(url);
 
-          if (!res.ok) {
-            throw new Error(data.msg);
-          }
           setValidToken(true);
         } catch (error) {
           setValidToken(false);
@@ -44,21 +41,13 @@ const NewPassword = () => {
     try {
       const url = `${
         import.meta.env.VITE_BACKEND_URL
-      }/users/forget-password/${token}`;
-
-      const res = await fetch(url, {
-        method: "POST",
+      }/api/users/forget-password/${token}`;
+      const config = {
         headers: {
           "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ password })
-      });
-      const data = await res.json();
-
-      //Lanzar un error
-      if (!res.ok) {
-        throw new Error(data.msg);
-      }
+        }
+      };
+      const { data } = await axiosClient.post(url, { password }, config);
 
       toastSuccess(data.msg);
       setPassword("");
