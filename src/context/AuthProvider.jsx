@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosClient from "../config/AxiosClient";
 
 const AuthContext = createContext();
 
@@ -18,17 +19,14 @@ const AuthProvider = ({ children }) => {
         }
 
         try {
-          const res = await fetch("http://localhost:4000/api/users/profile", {
+          const url = `${import.meta.env.VITE_BACKEND_URL}/api/users/profile`;
+          const config = {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${localStorageToken}`
             }
-          });
-          const data = await res.json();
-
-          if (!res.ok) {
-            throw new Error("error");
-          }
+          };
+          const { data } = await axiosClient(url, config);
 
           setAuth(data);
           navigate("/projects");

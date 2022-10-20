@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toastError, toastSuccess } from "../components/Toasts";
+import axiosClient from "../config/AxiosClient";
 import { checkEmail } from "../helpers/index";
 
 const ForgetPassword = () => {
@@ -17,24 +18,20 @@ const ForgetPassword = () => {
       const url = `${
         import.meta.env.VITE_BACKEND_URL
       }/api/users/forget-password`;
-      const res = await fetch(url, {
+      const config = {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email })
-      });
-      const data = await res.json();
+        }
+      };
 
-      //Lanzar un error
-      if (!res.ok) {
-        throw new Error(data.msg);
-      }
-
+      const { data } = await axiosClient.post(url, { email }, config);
+      console.log(data);
       toastSuccess(data.msg);
       setEmail("");
     } catch (error) {
-      toastError(error.message);
+      console.log(error.response.data.msg);
+      toastError(error.response.data.msg);
     }
   };
 
