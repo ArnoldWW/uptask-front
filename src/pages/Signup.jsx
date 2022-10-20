@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toastError, toastSuccess } from "../components/Toasts";
+import axiosClient from "../config/AxiosClient";
 import { checkEmail } from "../helpers";
 
 const initialUserData = {
@@ -39,27 +40,21 @@ const Signup = () => {
       return toastError("Password must be at least 6 characters");
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(userData)
+      const url = `${import.meta.env.VITE_BACKEND_URL}/api/users`;
+      const config = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
         }
-      );
-      const { msg } = await response.json();
+      };
 
-      //Manejar el error
-      if (!response.ok) {
-        throw new Error(msg);
-      }
-      toastSuccess(msg);
+      const { data } = await axiosClient.post(url, userData, config);
 
+      toastSuccess(data.msg);
       setUserData(initialUserData);
     } catch (error) {
-      toastError(error.message);
+      console.log(error.response.data.msg);
+      toastError(error.response.data.msg);
     }
   };
 
