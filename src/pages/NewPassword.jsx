@@ -14,10 +14,7 @@ const NewPassword = () => {
     if (shouldFetch) {
       const checkToken = async () => {
         try {
-          const url = `${
-            import.meta.env.VITE_BACKEND_URL
-          }/api/users/forget-password/${token}`;
-          const { data } = await axiosClient(url);
+          const { data } = await axiosClient(`/users/forget-password/${token}`);
 
           setValidToken(true);
         } catch (error) {
@@ -39,15 +36,16 @@ const NewPassword = () => {
     }
 
     try {
-      const url = `${
-        import.meta.env.VITE_BACKEND_URL
-      }/api/users/forget-password/${token}`;
       const config = {
         headers: {
           "Content-Type": "application/json"
         }
       };
-      const { data } = await axiosClient.post(url, { password }, config);
+      const { data } = await axiosClient.post(
+        `/users/forget-password/${token}`,
+        { password },
+        config
+      );
 
       toastSuccess(data.msg);
       setPassword("");

@@ -40,7 +40,6 @@ const Signup = () => {
       return toastError("Password must be at least 6 characters");
 
     try {
-      const url = `${import.meta.env.VITE_BACKEND_URL}/api/users`;
       const config = {
         method: "POST",
         headers: {
@@ -48,7 +47,7 @@ const Signup = () => {
         }
       };
 
-      const { data } = await axiosClient.post(url, userData, config);
+      const { data } = await axiosClient.post("/users", userData, config);
 
       toastSuccess(data.msg);
       setUserData(initialUserData);

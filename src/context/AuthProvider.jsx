@@ -19,14 +19,13 @@ const AuthProvider = ({ children }) => {
         }
 
         try {
-          const url = `${import.meta.env.VITE_BACKEND_URL}/api/users/profile`;
           const config = {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${localStorageToken}`
             }
           };
-          const { data } = await axiosClient(url, config);
+          const { data } = await axiosClient("/users/profile", config);
 
           setAuth(data);
           navigate("/projects");

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { toastError, toastSuccess } from "../components/Toasts";
 import axiosClient from "../config/AxiosClient";
 
 const ConfirmAccount = () => {
@@ -12,13 +11,9 @@ const ConfirmAccount = () => {
     if (shouldFetch) {
       const confirmAccount = async () => {
         try {
-          const url = `${
-            import.meta.env.VITE_BACKEND_URL
-          }/api/users/confirm/${token}`;
-
-          const { data } = axiosClient(url);
+          const { data } = await axiosClient(`/users/confirm/${token}`);
         } catch (error) {
-          toastError(error.message);
+          console.log(error.response.data.msg);
           setError(true);
         }
       };

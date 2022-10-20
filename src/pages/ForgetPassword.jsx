@@ -15,9 +15,6 @@ const ForgetPassword = () => {
     if (!checkEmail(email)) return toastError("Invalid email.");
 
     try {
-      const url = `${
-        import.meta.env.VITE_BACKEND_URL
-      }/api/users/forget-password`;
       const config = {
         method: "POST",
         headers: {
@@ -25,7 +22,11 @@ const ForgetPassword = () => {
         }
       };
 
-      const { data } = await axiosClient.post(url, { email }, config);
+      const { data } = await axiosClient.post(
+        "/users/forget-password",
+        { email },
+        config
+      );
       console.log(data);
       toastSuccess(data.msg);
       setEmail("");

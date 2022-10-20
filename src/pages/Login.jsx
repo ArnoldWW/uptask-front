@@ -43,13 +43,12 @@ const Login = () => {
     }
 
     try {
-      const url = `${import.meta.env.VITE_BACKEND_URL}/api/users/login`;
       const config = {
         headers: {
           "Content-Type": "application/json"
         }
       };
-      const res = await axiosClient.post(url, userData, config);
+      const res = await axiosClient.post("/users/login", userData, config);
 
       //Almacenar token local storage
       localStorage.setItem("token", res.data.token);
