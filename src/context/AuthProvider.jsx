@@ -15,6 +15,7 @@ const AuthProvider = ({ children }) => {
     if (shouldFetch) {
       const authenticateUser = async () => {
         if (!localStorageToken) {
+          navigate("/");
           return setLoadingUser(false);
         }
 
@@ -28,8 +29,11 @@ const AuthProvider = ({ children }) => {
           const { data } = await axiosClient("/users/profile", config);
 
           setAuth(data);
+          console.log(data);
           navigate("/projects");
         } catch (error) {
+          console.log(error);
+          navigate("/");
           setLoadingUser(false);
           setAuth({});
         }

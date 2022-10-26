@@ -46,12 +46,33 @@ const ProjectProvider = ({ children }) => {
     }
   };
 
+  const getProject = async (id) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
+
+    try {
+      const res = await axiosClient(`/projects/${id}`, config);
+
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ProjectContext.Provider
       value={{
         projects,
         createProject,
-        getProjects
+        getProjects,
+        getProject
       }}
     >
       {children}
