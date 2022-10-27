@@ -4,15 +4,33 @@ import useProjectProvider from "../hooks/useProjectProvider";
 
 const Project = () => {
   const params = useParams();
-  const { getProject } = useProjectProvider();
+  const { getProject, project, loadingProject } = useProjectProvider();
+  let shouldFetch = true;
 
   useEffect(() => {
-    getProject(params.id);
+    if (shouldFetch) {
+      getProject(params.id);
+    }
+    console.log(loadingProject);
+
+    return () => {
+      shouldFetch = false;
+    };
   }, []);
+
+  if (loadingProject) {
+    return (
+      <div className="my-14">
+        <h1 className="font-bold text-4xl m-0 text-center">...</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="my-14">
-      <h1 className="font-bold text-4xl m-0 text-center">Project</h1>
+      <h1 className="font-bold text-4xl m-0 text-center">
+        Project - {project.name}
+      </h1>
     </div>
   );
 };

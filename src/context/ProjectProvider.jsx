@@ -9,6 +9,8 @@ const ProjectContext = createContext();
 const ProjectProvider = ({ children }) => {
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
+  const [project, setProject] = useState({});
+  const [loadingProject, setLoadingProject] = useState(true);
 
   const createProject = async (project) => {
     const token = localStorage.getItem("token");
@@ -41,6 +43,10 @@ const ProjectProvider = ({ children }) => {
         }
       });
       setProjects(res.data);
+
+      //Reset project
+      setProject({});
+      setLoadingProject(true);
     } catch (error) {
       toastError(error.message);
     }
@@ -58,11 +64,13 @@ const ProjectProvider = ({ children }) => {
     };
 
     try {
-      const res = await axiosClient(`/projects/${id}`, config);
-
-      console.log(res.data);
+      const { data } = await axiosClient(`/projects/${id}`, config);
+      console.log(data);
+      setProject(data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoadingProject(false);
     }
   };
 
@@ -70,6 +78,8 @@ const ProjectProvider = ({ children }) => {
     <ProjectContext.Provider
       value={{
         projects,
+        project,
+        loadingProject,
         createProject,
         getProjects,
         getProject
