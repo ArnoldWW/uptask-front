@@ -34,7 +34,7 @@ const NewProject = () => {
   return (
     <div className="my-14">
       <h1 className="font-bold text-4xl my-5 text-center">
-        Create a new project
+        Create new project
       </h1>
 
       <form
