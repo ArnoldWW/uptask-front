@@ -17,6 +17,9 @@
   .btn {
     @apply cursor-pointer bg-slate-900 text-white p-2 capitalize font-bold hover:bg-slate-800;
   }
+  .btn-w-icon {
+    @apply cursor-pointer bg-slate-900 text-white p-2 capitalize font-bold hover:bg-slate-800 flex gap-1;
+  }
 
   .input {
     @apply my-2 bg-gray-100 p-2 block w-full border border-gray-200;
