@@ -20,8 +20,8 @@ const Project = () => {
 
   return (
     <div className="my-14">
-      <div className="flex justify-between">
-        <h1 className="font-bold text-4xl m-0 text-center">
+      <div className="md:flex md:justify-between">
+        <h1 className="font-bold text-4xl mb-4 md:m-0 md:text-center">
           Project - {project.name}
         </h1>
 

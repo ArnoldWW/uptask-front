@@ -11,7 +11,7 @@ const Projects = () => {
 
   return (
     <div className="my-14">
-      <h1 className="font-bold text-4xl m-0 text-center">My projects</h1>
+      <h1 className="font-bold text-4xl mb-10 text-center">My projects</h1>
       <ul className="bg-white my-5 border">
         {projects.map((project) => (
           <li

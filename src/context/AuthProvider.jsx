@@ -30,9 +30,9 @@ const AuthProvider = ({ children }) => {
 
           setAuth(data);
           console.log(data);
-          navigate("/projects");
+          //navigate("/projects");
         } catch (error) {
-          console.log(error);
+          console.log(error.response.data);
           navigate("/");
           setLoadingUser(false);
           setAuth({});

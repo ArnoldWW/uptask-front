@@ -65,10 +65,10 @@ const ProjectProvider = ({ children }) => {
 
     try {
       const { data } = await axiosClient(`/projects/${id}`, config);
-      console.log(data);
       setProject(data);
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data);
+      navigate("/projects");
     } finally {
       setLoadingProject(false);
     }
