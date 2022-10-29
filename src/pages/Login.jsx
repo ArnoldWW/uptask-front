@@ -13,15 +13,12 @@ const initialUserData = {
 
 const Login = () => {
   const [userData, setUserData] = useState(initialUserData);
-  const { auth, setAuth } = useAuthProvider();
+  const { setAuth, redirectAuthenticatedUser } = useAuthProvider();
   const navigate = useNavigate();
 
   useEffect(() => {
-    //redireccionar si ya esta autenticado
-    if (Object.values(auth).length !== 0) {
-      navigate("/projects");
-    }
-  }, []);
+    redirectAuthenticatedUser();
+  });
 
   const handleChange = (e) => {
     setUserData({

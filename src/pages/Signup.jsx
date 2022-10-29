@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { toastError, toastSuccess } from "../components/Toasts";
 import axiosClient from "../config/AxiosClient";
+import useAuthProvider from "../hooks/useAuthProvider";
+import { toastError, toastSuccess } from "../components/Toasts";
 import { checkEmail } from "../helpers";
 
 const initialUserData = {
@@ -13,6 +15,11 @@ const initialUserData = {
 
 const Signup = () => {
   const [userData, setUserData] = useState(initialUserData);
+  const { redirectAuthenticatedUser } = useAuthProvider();
+
+  useEffect(() => {
+    redirectAuthenticatedUser();
+  });
 
   const handleChange = (e) => {
     setUserData({

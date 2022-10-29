@@ -1,17 +1,23 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axiosClient from "../config/AxiosClient";
+import useAuthProvider from "../hooks/useAuthProvider";
 
 const ConfirmAccount = () => {
   const { token } = useParams();
+  const { redirectAuthenticatedUser } = useAuthProvider();
   const [error, setError] = useState(false);
   let shouldFetch = true;
+
+  useEffect(() => {
+    redirectAuthenticatedUser();
+  });
 
   useEffect(() => {
     if (shouldFetch) {
       const confirmAccount = async () => {
         try {
-          const { data } = await axiosClient(`/users/confirm/${token}`);
+          await axiosClient(`/users/confirm/${token}`);
         } catch (error) {
           console.log(error.response.data.msg);
           setError(true);

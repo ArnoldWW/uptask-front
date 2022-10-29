@@ -1,11 +1,18 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toastError, toastSuccess } from "../components/Toasts";
 import axiosClient from "../config/AxiosClient";
 import { checkEmail } from "../helpers/index";
+import useAuthProvider from "../hooks/useAuthProvider";
 
 const ForgetPassword = () => {
+  const { redirectAuthenticatedUser } = useAuthProvider();
   const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    redirectAuthenticatedUser();
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();

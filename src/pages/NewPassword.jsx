@@ -2,19 +2,25 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { toastError, toastSuccess } from "../components/Toasts";
 import axiosClient from "../config/AxiosClient";
+import useAuthProvider from "../hooks/useAuthProvider";
 
 const NewPassword = () => {
   const { token } = useParams();
+  const { redirectAuthenticatedUser } = useAuthProvider();
   const [validToken, setValidToken] = useState(true);
   const [password, setPassword] = useState("");
   let shouldFetch = true;
   const navigate = useNavigate();
 
   useEffect(() => {
+    redirectAuthenticatedUser();
+  });
+
+  useEffect(() => {
     if (shouldFetch) {
       const checkToken = async () => {
         try {
-          const { data } = await axiosClient(`/users/forget-password/${token}`);
+          await axiosClient(`/users/forget-password/${token}`);
 
           setValidToken(true);
         } catch (error) {
@@ -55,50 +61,50 @@ const NewPassword = () => {
     }
   };
 
+  if (!validToken) {
+    return (
+      <>
+        <h1 className="font-bold text-4xl capitalize text-center">
+          This page is not available.
+        </h1>
+        <Link to="/" className="hover:underline block mt-5 text-center">
+          Back to Log In
+        </Link>
+      </>
+    );
+  }
+
   return (
     <>
-      {validToken ? (
-        <>
-          <h1 className="font-bold text-4xl capitalize text-center text-slate-800">
-            Create your new password.
-          </h1>
+      <h1 className="font-bold text-4xl capitalize text-center text-slate-800">
+        Create your new password.
+      </h1>
 
-          <form
-            className="my-5 shadow-sm bg-white p-5 border border-gray-200"
-            onSubmit={handleSubmit}
-          >
-            <div className="mb-4">
-              <label htmlFor="password" className="font-bold">
-                Password:
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="your new password"
-                className="input"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+      <form
+        className="my-5 shadow-sm bg-white p-5 border border-gray-200"
+        onSubmit={handleSubmit}
+      >
+        <div className="mb-4">
+          <label htmlFor="password" className="font-bold">
+            Password:
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="your new password"
+            className="input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
-            <input
-              type="submit"
-              value="create new password"
-              className="mt-4 btn w-full"
-            />
-          </form>
-        </>
-      ) : (
-        <>
-          <h1 className="font-bold text-4xl capitalize text-center">
-            This page is not available.
-          </h1>
-          <Link to="/" className="hover:underline block mt-5 text-center">
-            Back to Log In
-          </Link>
-        </>
-      )}
+        <input
+          type="submit"
+          value="create new password"
+          className="mt-4 btn w-full"
+        />
+      </form>
     </>
   );
 };

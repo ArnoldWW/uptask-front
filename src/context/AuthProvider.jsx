@@ -1,15 +1,24 @@
 import { useState, useEffect, createContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axiosClient from "../config/AxiosClient";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const localStorageToken = localStorage.getItem("token");
+  let shouldFetch = true;
+
   const navigate = useNavigate();
   const [auth, setAuth] = useState({});
   const [loadingUser, setLoadingUser] = useState(true);
-  let shouldFetch = true;
+
+  const redirectAuthenticatedUser = () => {
+    //redireccionar si ya esta autenticado
+    if (Object.values(auth).length !== 0) {
+      navigate("/projects");
+      console.log("user authenticated");
+    }
+  };
 
   useEffect(() => {
     if (shouldFetch) {
@@ -52,7 +61,8 @@ const AuthProvider = ({ children }) => {
       value={{
         auth,
         loadingUser,
-        setAuth
+        setAuth,
+        redirectAuthenticatedUser
       }}
     >
       {children}
