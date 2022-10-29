@@ -8,7 +8,7 @@ const Project = () => {
 
   useEffect(() => {
     getProject(params.id);
-  });
+  }, []);
 
   if (loadingProject) {
     return (
