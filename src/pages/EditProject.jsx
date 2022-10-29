@@ -21,10 +21,15 @@ const EditProject = () => {
 
   return (
     <div className="my-14">
-      <div className="md:flex md:justify-between md:gap-4 mb-10">
-        <h1 className="font-bold text-4xl mb-4 md:m-0 md:text-center">
-          Edit Project - {project.name}
-        </h1>
+      <div className="md:flex md:justify-between md:gap-4 md:items-center mb-10">
+        <div>
+          <h1 className="text-center font-bold text-4xl capitalize mb-5 md:text-left">
+            Edit project
+          </h1>
+          <h2 className="text-center font-bold text-2xl mb-4 md:m-0 md:text-left">
+            {project.name}
+          </h2>
+        </div>
 
         <Link to={`/projects/${params.id}`} className="btn-w-icon">
           <svg

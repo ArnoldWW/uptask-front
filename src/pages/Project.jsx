@@ -8,7 +8,7 @@ const Project = () => {
 
   useEffect(() => {
     getProject(params.id);
-  }, []);
+  });
 
   if (loadingProject) {
     return (
@@ -20,10 +20,15 @@ const Project = () => {
 
   return (
     <div className="my-14">
-      <div className="md:flex md:justify-between">
-        <h1 className="font-bold text-4xl mb-4 md:m-0 md:text-center">
-          Project - {project.name}
-        </h1>
+      <div className="md:flex md:justify-between md:items-center">
+        <div>
+          <h1 className="text-center font-bold text-4xl capitalize mb-5 md:text-left">
+            Project and tasks
+          </h1>
+          <h2 className="text-center font-bold text-2xl mb-4 md:m-0 md:text-left">
+            {project.name}
+          </h2>
+        </div>
 
         <Link to={`/projects/edit/${params.id}`} className="btn-w-icon">
           Edit

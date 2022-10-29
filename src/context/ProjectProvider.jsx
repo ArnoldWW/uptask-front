@@ -44,7 +44,7 @@ const ProjectProvider = ({ children }) => {
       });
       setProjects(res.data);
 
-      //Reset project
+      //Reset active project
       setProject({});
       setLoadingProject(true);
     } catch (error) {
@@ -74,6 +74,25 @@ const ProjectProvider = ({ children }) => {
     }
   };
 
+  const editProject = async (project) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    console.log(project.name);
+    try {
+      await axiosClient.put(`/projects/${project.id}`, project, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      toastSuccess("Project edited successfully");
+      navigate("/");
+    } catch (error) {
+      toastError(error.message);
+    }
+  };
+
   return (
     <ProjectContext.Provider
       value={{
@@ -82,7 +101,8 @@ const ProjectProvider = ({ children }) => {
         loadingProject,
         createProject,
         getProjects,
-        getProject
+        getProject,
+        editProject
       }}
     >
       {children}

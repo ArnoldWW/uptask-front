@@ -11,8 +11,8 @@ const initialProjectData = {
 };
 
 const ProjectForm = () => {
+  const { project, createProject, editProject } = useProjectProvider();
   const [projectData, setProjectData] = useState(initialProjectData);
-  const { createProject, project } = useProjectProvider();
   const isCreating = Object.values(project).length === 0;
 
   useEffect(() => {
@@ -20,6 +20,13 @@ const ProjectForm = () => {
       console.log("creating");
     } else {
       console.log("editing");
+      setProjectData({
+        id: project._id,
+        name: project.name,
+        description: project.description,
+        finishdate: project.finishDate.split("T")[0],
+        client: project.client
+      });
     }
   }, []);
 
@@ -36,10 +43,15 @@ const ProjectForm = () => {
     if (Object.values(projectData).some(empty)) {
       return toastError("All fields are required.");
     }
-    console.log("send data from project form");
 
-    /* await createProject(projectData);
-    setProjectData(initialProjectData); */
+    if (isCreating) {
+      console.log(project._id);
+      await createProject(projectData);
+      setProjectData(initialProjectData);
+    } else {
+      await editProject(projectData);
+      setProjectData(initialProjectData);
+    }
   };
 
   return (
