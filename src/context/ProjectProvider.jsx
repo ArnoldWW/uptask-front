@@ -26,7 +26,8 @@ const ProjectProvider = ({ children }) => {
       toastSuccess("Project created successfully");
       navigate("/");
     } catch (error) {
-      toastError(error.message);
+      console.log(error);
+      toastError(error.response.data.msg);
     }
   };
 
@@ -65,9 +66,10 @@ const ProjectProvider = ({ children }) => {
 
     try {
       const { data } = await axiosClient(`/projects/${id}`, config);
+      console.log(data);
       setProject(data);
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.response.data.msg);
       navigate("/projects");
     } finally {
       setLoadingProject(false);
@@ -77,19 +79,42 @@ const ProjectProvider = ({ children }) => {
   const editProject = async (project) => {
     const token = localStorage.getItem("token");
     if (!token) return;
-    console.log(project.name);
+
     try {
-      await axiosClient.put(`/projects/${project.id}`, project, {
+      const { data } = await axiosClient.put(
+        `/projects/${project.id}`,
+        project,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      toastSuccess(data.msg);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteProject = async (id) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      const { data } = await axiosClient.delete(`/projects/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`
         }
       });
-
-      toastSuccess("Project edited successfully");
+      console.log(data);
+      toastSuccess(data.msg);
       navigate("/");
     } catch (error) {
-      toastError(error.message);
+      console.log(error);
     }
   };
 
@@ -102,7 +127,8 @@ const ProjectProvider = ({ children }) => {
         createProject,
         getProjects,
         getProject,
-        editProject
+        editProject,
+        deleteProject
       }}
     >
       {children}

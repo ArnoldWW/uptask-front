@@ -8,9 +8,6 @@
     margin: 0 auto;
     width: 95%;
   }
-  .activeLink {
-    text-decoration: underline;
-  }
 }
 
 @layer components {
