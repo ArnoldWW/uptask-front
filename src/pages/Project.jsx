@@ -21,8 +21,8 @@ const Project = () => {
 
   return (
     <div className="my-14">
-      <div className="md:flex md:justify-between md:items-center">
-        <div>
+      <div className="md:flex md:justify-between md:items-center md:gap-4">
+        <div className="md:flex-grow mb-5 md:mb-0">
           <h1 className="text-center font-bold text-4xl capitalize mb-5 md:text-left">
             Project and tasks
           </h1>
