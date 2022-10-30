@@ -13,7 +13,9 @@ const Projects = () => {
   return (
     <div className="my-14">
       <h1 className="font-bold text-4xl mb-10 text-center">
-        {projects.length > 0 ? "My projects" : "No project has been created."}
+        {projects.length > 0
+          ? "My projects"
+          : "You don't have projects created yet."}
       </h1>
       <ul className="bg-white my-5 border">
         {projects.map((project) => (
