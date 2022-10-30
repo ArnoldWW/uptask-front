@@ -7,16 +7,19 @@ const Projects = () => {
 
   useEffect(() => {
     getProjects();
+    console.log(projects.length);
   }, []);
 
   return (
     <div className="my-14">
-      <h1 className="font-bold text-4xl mb-10 text-center">My projects</h1>
+      <h1 className="font-bold text-4xl mb-10 text-center">
+        {projects.length > 0 ? "My projects" : "No project has been created."}
+      </h1>
       <ul className="bg-white my-5 border">
         {projects.map((project) => (
           <li
-            className="flex justify-between items-center border-b p-5"
             key={project._id}
+            className="flex justify-between items-center border-b p-5"
           >
             <div>
               <h2 className="text-xl font-bold">{project.name}</h2>
@@ -43,7 +46,6 @@ const Projects = () => {
           </li>
         ))}
       </ul>
-
       <Link to="/projects/new-project" className="btn text-center w-full block">
         Create new Project
       </Link>
