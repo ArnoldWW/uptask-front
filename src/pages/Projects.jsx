@@ -11,7 +11,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <div className="my-14">
+    <>
       <h1 className="font-bold text-4xl mb-10 text-center">
         {projects.length > 0
           ? "My projects"
@@ -51,7 +51,7 @@ const Projects = () => {
       <Link to="/projects/new-project" className="btn text-center w-full block">
         Create new Project
       </Link>
-    </div>
+    </>
   );
 };
 

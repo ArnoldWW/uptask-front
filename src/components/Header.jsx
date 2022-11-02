@@ -6,7 +6,7 @@ const Header = () => {
 
   return (
     <header className="bg-white p-5 border-b">
-      <div className="flex gap-5 custom-container flex-col md:flex-row justify-center md:justify-between items-center">
+      <div className="flex gap-5 main-container flex-col md:flex-row justify-center md:justify-between items-center">
         <h2 className="text-2xl font-bold">UpTask</h2>
 
         <nav className="flex items-center gap-5 overflow-x-auto">

@@ -12,7 +12,7 @@ const ProtectedRoute = () => {
       {auth?._id ? (
         <>
           <Header />
-          <main className="custom-container">
+          <main className="main-container my-14">
             <Outlet />
           </main>
         </>

@@ -3,11 +3,6 @@
 @tailwind utilities;
 
 @layer utilities {
-  .custom-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    width: 95%;
-  }
 }
 
 @layer components {
@@ -20,5 +15,9 @@
 
   .input {
     @apply my-2 bg-gray-100 p-2 block w-full border border-gray-200;
+  }
+
+  .main-container {
+    @apply max-w-[1000px] mx-auto w-[95%];
   }
 }
