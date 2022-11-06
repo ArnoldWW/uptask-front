@@ -7,10 +7,10 @@
 
 @layer components {
   .btn {
-    @apply cursor-pointer bg-slate-900 text-white p-2 capitalize font-bold hover:bg-slate-800;
+    @apply transition-colors duration-200 cursor-pointer bg-slate-900 text-white py-3 px-5 capitalize font-bold hover:bg-slate-800;
   }
   .btn-w-icon {
-    @apply cursor-pointer bg-slate-900 text-white p-2 capitalize font-bold hover:bg-slate-800 flex items-center justify-center gap-2;
+    @apply btn flex items-center justify-center gap-2;
   }
 
   .input {

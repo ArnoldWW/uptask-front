@@ -11,6 +11,7 @@ const ProjectProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState({});
   const [loadingProject, setLoadingProject] = useState(true);
+  const [taskModal, setTaskModal] = useState(false);
 
   const createProject = async (project) => {
     const token = localStorage.getItem("token");
@@ -124,11 +125,13 @@ const ProjectProvider = ({ children }) => {
         projects,
         project,
         loadingProject,
+        taskModal,
         createProject,
         getProjects,
         getProject,
         editProject,
-        deleteProject
+        deleteProject,
+        setTaskModal
       }}
     >
       {children}

@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import MyModal from "../components/Modal";
 import useProjectProvider from "../hooks/useProjectProvider";
 
 const Project = () => {
   const params = useParams();
-  const { getProject, project, loadingProject } = useProjectProvider();
+  const { project, taskModal, getProject, loadingProject, setTaskModal } =
+    useProjectProvider();
 
   useEffect(() => {
     getProject(params.id);
@@ -21,7 +23,7 @@ const Project = () => {
 
   return (
     <>
-      <section className="md:flex md:justify-between md:items-center md:gap-4">
+      <section className="mb-10 md:flex md:justify-between md:items-center md:gap-4">
         <div className="md:flex-grow mb-5 md:mb-0">
           <h1 className="text-center font-bold text-4xl capitalize mb-5 md:text-left">
             Project and tasks
@@ -50,7 +52,30 @@ const Project = () => {
         </Link>
       </section>
 
-      <section></section>
+      <ul className="bg-white my-5 border">
+        <li className="flex justify-between items-center border-b p-5">
+          task #1
+        </li>
+
+        <li className="flex justify-between items-center border-b p-5">
+          task #1
+        </li>
+
+        <li className="flex justify-between items-center border-b p-5">
+          task #1
+        </li>
+      </ul>
+
+      <button
+        className="btn text-center w-full block"
+        onClick={() => {
+          setTaskModal(true);
+        }}
+      >
+        Add new task
+      </button>
+
+      {/* <MyModal /> */}
     </>
   );
 };
