@@ -1,3 +1,4 @@
+import Logo from "/logo.svg";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -60,9 +61,8 @@ const Login = () => {
 
   return (
     <div>
-      <h1 className="font-bold text-4xl capitalize text-center">
-        Log in and create your projects.
-      </h1>
+      <img src={Logo} className="mx-auto mb-5" />
+      <p className="text-xl text-center">Log in and create your projects.</p>
 
       <form
         onSubmit={handleSubmit}
