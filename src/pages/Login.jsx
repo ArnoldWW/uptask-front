@@ -61,7 +61,7 @@ const Login = () => {
 
   return (
     <div>
-      <img src={Logo} className="mx-auto mb-5" />
+      <img src={Logo} className="mx-auto mb-2" />
       <p className="text-xl text-center">Log in and create your projects.</p>
 
       <form

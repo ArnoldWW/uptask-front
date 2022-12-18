@@ -67,8 +67,8 @@ const Signup = () => {
 
   return (
     <div>
-      <img src={Logo} className="mx-auto mb-5" />
-      <h1 className="text-xl text-center">Sign up and create your projects.</h1>
+      <img src={Logo} className="mx-auto mb-2" />
+      <p className="text-xl text-center">Sign up and create your projects.</p>
 
       <form
         onSubmit={handleSubmit}
