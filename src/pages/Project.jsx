@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import MyModal from "../components/Modal";
+import NewTaskModal from "../components/NewTaskModal";
 import useProjectProvider from "../hooks/useProjectProvider";
 
 const Project = () => {
@@ -23,6 +23,7 @@ const Project = () => {
 
   return (
     <>
+      <NewTaskModal />
       <section className="mb-10 md:flex md:justify-between md:items-center md:gap-4">
         <div className="md:flex-grow mb-5 md:mb-0">
           <h1 className="text-center font-bold text-4xl capitalize mb-5 md:text-left">
@@ -75,7 +76,7 @@ const Project = () => {
         Add new task
       </button>
 
-      {/* <MyModal /> */}
+      <NewTaskModal />
     </>
   );
 };
