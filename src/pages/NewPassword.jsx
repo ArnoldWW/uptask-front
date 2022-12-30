@@ -1,3 +1,4 @@
+import Logo from "/logo.svg";
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { toastError, toastSuccess } from "../components/Toasts";
@@ -76,9 +77,8 @@ const NewPassword = () => {
 
   return (
     <>
-      <h1 className="font-bold text-4xl capitalize text-center text-slate-800">
-        Create your new password.
-      </h1>
+      <img src={Logo} className="mx-auto mb-2" />
+      <p className="text-xl text-center">Create your new password.</p>
 
       <form
         className="my-5 shadow-sm bg-white p-5 border border-gray-200"

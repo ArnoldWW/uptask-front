@@ -1,3 +1,4 @@
+import Logo from "/logo.svg";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -45,9 +46,8 @@ const ForgetPassword = () => {
 
   return (
     <div>
-      <h1 className="font-bold text-4xl capitalize text-center">
-        Recover your password.
-      </h1>
+      <img src={Logo} className="mx-auto mb-2" />
+      <p className="text-xl text-center">Recover your password.</p>
 
       <form
         onSubmit={handleSubmit}
