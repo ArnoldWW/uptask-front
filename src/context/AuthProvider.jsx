@@ -24,7 +24,6 @@ const AuthProvider = ({ children }) => {
     if (shouldFetch) {
       const authenticateUser = async () => {
         if (!localStorageToken) {
-          navigate("/");
           return setLoadingUser(false);
         }
 
@@ -39,7 +38,6 @@ const AuthProvider = ({ children }) => {
 
           setAuth(data);
           console.log(data);
-          //navigate("/projects");
         } catch (error) {
           console.log(error.response.data);
           navigate("/");

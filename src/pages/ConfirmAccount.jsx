@@ -5,13 +5,8 @@ import useAuthProvider from "../hooks/useAuthProvider";
 
 const ConfirmAccount = () => {
   const { token } = useParams();
-  const { redirectAuthenticatedUser } = useAuthProvider();
   const [error, setError] = useState(false);
   let shouldFetch = true;
-
-  useEffect(() => {
-    redirectAuthenticatedUser();
-  });
 
   useEffect(() => {
     if (shouldFetch) {

@@ -21,8 +21,8 @@ const NewPassword = () => {
     if (shouldFetch) {
       const checkToken = async () => {
         try {
-          await axiosClient(`/users/forget-password/${token}`);
-
+          const data = await axiosClient(`/users/forget-password/${token}`);
+          console.log(data);
           setValidToken(true);
         } catch (error) {
           setValidToken(false);
